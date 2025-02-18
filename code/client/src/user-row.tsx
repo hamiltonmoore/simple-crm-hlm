@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { User } from "./types";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const UserRow: React.FC<{ user: User }> = ({ user }) => {
+    const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const [isAddingNote, setIsAddingNote] = useState(false);
     const [firstName, setFirstName] = useState(user.firstName);
@@ -13,6 +15,7 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(false);
     const [note, setNote] = useState("");
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -45,6 +48,10 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             setError((error as any).response.data || "Failed to add note");
         }
+    };
+
+    const handleEditClick = () => {
+        navigate(`/user/${user.id}`);
     };
 
     if (isEditing) {
@@ -134,6 +141,9 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
             </td>
             <td>
                 <button onClick={() => setIsAddingNote(true)}>Add Note</button>
+            </td>
+            <td>
+                <button onClick={handleEditClick}>Edit Page</button>
             </td>
             <td>{firstName}</td>
             <td>{lastName}</td>
