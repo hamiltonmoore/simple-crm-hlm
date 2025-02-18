@@ -9,7 +9,7 @@ export const App: React.FC = () => {
             <Router>
                 <Routes>
                     <Route path="/users" element={<Users/>} />
-                    <Route path="/admin/users/:id" element={<UserPage/>} />
+                    <Route path="/users/:id" element={<UserPage/>} />
                 </Routes>
             </Router>
 

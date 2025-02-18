@@ -65,11 +65,12 @@ const run = async () => {
         }
     });
     app.get("/users/:id", async (req, res) => {
+        console.log("did we make it to the backend request?", req.params.id);
         const userId = Number(req.params.id);
         const userRepository = AppDataSource.manager.getRepository(User);
         const user = await userRepository.findOne({
           where: { id: userId },
-          relations: ["notes"], // include the notes relation
+          relations: ["notes"],
         });
         if (!user) {
           return res.status(404).json({ error: "User not found" });

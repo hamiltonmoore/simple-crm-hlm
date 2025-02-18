@@ -36,6 +36,7 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
         setLoading(false);
     };
 
+    // submit a note to the DB for a give user id
     const handleSubmitNote = async (e: React.FormEvent) => {
         e.preventDefault();
         // Replace with your actual endpoint and note submission logic.
@@ -50,8 +51,9 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
         }
     };
 
+    // Navigate to new path to show individual user
     const handleEditClick = () => {
-        navigate(`/user/${user.id}`);
+        navigate(`/users/${user.id}`);
     };
 
     if (isEditing) {
