@@ -25,7 +25,7 @@ const run = async () => {
             .findOne({ where: { id: req.params.id } });
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
-        user.id = req.body.age;
+        user.age = req.body.age;
         user.phoneNumber = req.body.phoneNumber;
         await AppDataSource.manager.getRepository(User).save(user);
         res.json(user);
