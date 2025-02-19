@@ -37,7 +37,7 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
     };
 
     // Navigate to new path to show individual user
-    const handleEditClick = () => {
+    const handleProfileClick = () => {
         navigate(`/users/${user.id}`);
     };
 
@@ -99,7 +99,7 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
                 <button onClick={() => setIsEditing(true)}>Edit</button>
             </td>
             <td>
-                <button onClick={handleEditClick}>Edit Page</button>
+                <button onClick={handleProfileClick}>View Profile</button>
             </td>
             <td>{firstName}</td>
             <td>{lastName}</td>
