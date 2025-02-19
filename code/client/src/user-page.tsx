@@ -4,7 +4,7 @@ import axios from "axios";
 import { User } from "./types";
 
 export const UserPage: React.FC = () => {
-  const [isAddingNote, setIsAddingNote] = useState(false);
+  // const [isAddingNote, setIsAddingNote] = useState(false);
   const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -30,7 +30,7 @@ export const UserPage: React.FC = () => {
       if (user) {
         await axios.post(`/api/users/${user.id}/notes`, { note });
         setNote("");
-        setIsAddingNote(false);
+        // setIsAddingNote(false);
         
         // Get & set updated notes
         const response = await axios.get(`/api/users/${user.id}`);
@@ -49,33 +49,11 @@ export const UserPage: React.FC = () => {
   if (error) return <div>{error}</div>;
   if (!user) return <div>User not found</div>;
 
-  if (isAddingNote) {
-    return (
-      <tr>
-        <td colSpan={6}>
-          <form
-            onSubmit={handleSubmitNote}
-            className="space-y-4 p-4 rounded bg-gray-100 w-96"
-          >
-            <h2 className="text-xl font-bold">Add Note</h2>
-            {error && <p className="text-red-500">{error}</p>}
-            <textarea
-              placeholder="Enter note"
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              className="block w-full p-2 border border-gray-300 rounded"
-            />
-            <button
-              type="submit"
-              className="block w-full p-2 bg-blue-500 text-white rounded"
-            >
-              Submit Note
-            </button>
-          </form>
-        </td>
-      </tr>
-    )
-  }
+  // if (isAddingNote) {
+  //   return (
+      
+  //   )
+  // }
 
   return (
     <div className="p-4">
@@ -100,9 +78,29 @@ export const UserPage: React.FC = () => {
       ) : (
         <p>No notes available.</p>
       )}
-      <div>
-        <button onClick={() => setIsAddingNote(true)}>Add Note</button>
-      </div>
+      <tr>
+        <td colSpan={6}>
+          <form
+            onSubmit={handleSubmitNote}
+            className="space-y-4 p-4 rounded bg-gray-100 w-96"
+          >
+            <h2 className="text-xl font-bold">Add Note</h2>
+            {error && <p className="text-red-500">{error}</p>}
+            <textarea
+              placeholder="Enter note"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              className="block w-full p-2 border border-gray-300 rounded"
+            />
+            <button
+              type="submit"
+              className="block w-full p-2 bg-blue-500 text-white rounded"
+            >
+              Submit Note
+            </button>
+          </form>
+        </td>
+      </tr>
     </div>
   );
 };
