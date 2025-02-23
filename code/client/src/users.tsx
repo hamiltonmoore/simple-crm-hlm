@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { User } from "./types";
-import { UserRow } from "./user-row";
-import { AddUser } from "./add-user";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "./store";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserRow } from './user-row';
+import { AddUser } from './add-user';
+import { setUsers } from './store/userSlice';
+import { RootState } from './store/index';
 
 export const Users: React.FC = () => {
     const dispatch = useDispatch();
