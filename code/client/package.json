@@ -1,11 +1,14 @@
 {
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
     "autoprefixer": "*",
     "axios": "*",
     "postcss": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^6.29.0",
+    "redux": "^5.0.1",
     "tailwindcss": "*"
   },
   "devDependencies": {
