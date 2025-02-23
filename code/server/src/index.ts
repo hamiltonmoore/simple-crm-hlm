@@ -65,12 +65,16 @@ const run = async () => {
         }
     });
     app.delete("/users/:id", async (req, res) => {
+        console.log("testing the delete endpoint, are we here?")
         const userId = Number(req.params.id);
         const userRepository = AppDataSource.manager.getRepository(User);
         const user = await userRepository.delete({
           id: userId
         });
         res.json(user);
+        if (!user) {
+            return res.status(404).json({error: "User not found"});
+        }
     })
     app.get("/users/:id", async (req, res) => {
         const userId = Number(req.params.id);

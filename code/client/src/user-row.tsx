@@ -19,7 +19,9 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
         dispatch(deleteUserStart());
         try {
             await axios.delete(`/api/users/${user.id}`);
+            console.log("after the request to delete")
             dispatch(deleteUserSuccess(user.id));
+            console.log("after dispatching to slice");
         } catch (err) {
             const errorMessage = axios.isAxiosError(err) && err.response?.data
                 ? err.response.data
@@ -42,12 +44,15 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
             <td>{user.lastName}</td>
             <td>{user.age}</td>
             <td>{user.phoneNumber}</td>
-            <button
-                onClick={handleDelete}
-                className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-                Delete
-            </button>
+            <td>
+                <button
+                    onClick={handleDelete}
+                    className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                    Delete
+                </button>
+            </td>
+
         </tr>
     );
 };
