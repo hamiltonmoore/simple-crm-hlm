@@ -161,7 +161,7 @@ export const UserPage: React.FC = () => {
       </button>
       <button
         onClick={() => dispatch(startEditing(user))}
-        className="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="mb-4 p-2 bg-red-500 text-white rounded hover:bg-red-600"
       >
         Delete User
       </button>
