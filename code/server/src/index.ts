@@ -64,6 +64,9 @@ const run = async () => {
             });
         }
     });
+    app.delete("/users/:id", async (req, res) => {
+        
+    })
     app.get("/users/:id", async (req, res) => {
         const userId = Number(req.params.id);
         const userRepository = AppDataSource.manager.getRepository(User);
