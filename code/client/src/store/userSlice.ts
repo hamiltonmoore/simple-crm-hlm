@@ -83,6 +83,9 @@ export const {
     saveUserSuccess,
     saveUserFailure,
     cancelEditing,
+    deleteUserStart,
+    deleteUserSuccess,
+    deleteUserFailure
 } = userSlice.actions;
 
 export default userSlice.reducer;

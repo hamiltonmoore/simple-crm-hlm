@@ -10,6 +10,8 @@ import {
   saveUserSuccess,
   saveUserFailure,
   cancelEditing,
+  deleteUserStart,
+  deleteUserSuccess
 } from './store/userSlice';
 import { RootState } from './store/index';
 
