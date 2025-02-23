@@ -38,7 +38,7 @@ export const UserPage: React.FC = () => {
   }, [id]);
 
   // Handle editing form submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingUser) return;
 
@@ -59,6 +59,11 @@ export const UserPage: React.FC = () => {
       dispatch(saveUserFailure(errorMessage));
     }
   };
+
+  // Handle user deletion
+  const handleDeleteUser = async (e: React.FormEvent) => {
+    console.log("delete the user:")
+  }
 
   // Handle note submission
   const handleSubmitNote = async (e: React.FormEvent) => {
@@ -86,7 +91,7 @@ export const UserPage: React.FC = () => {
     return (
       <div className="p-4 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleEditSubmit}
           className="space-y-4 p-4 rounded bg-gray-100 w-96"
         >
           <h2 className="text-xl font-bold">Edit</h2>
@@ -153,6 +158,12 @@ export const UserPage: React.FC = () => {
         className="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         Edit User
+      </button>
+      <button
+        onClick={() => dispatch(startEditing(user))}
+        className="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Delete User
       </button>
 
       <h2 className="text-xl mt-4 font-semibold">Notes</h2>
