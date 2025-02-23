@@ -3,16 +3,25 @@ import { useEffect, useState } from "react";
 import { User } from "./types";
 import { UserRow } from "./user-row";
 import { AddUser } from "./add-user";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./store";
 
 export const Users: React.FC = () => {
-    const [users, setUsers] = useState<User[]>([]);
+    const dispatch = useDispatch();
+    const users = useSelector((state: RootState) => state.user.users);
+  
     useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios.get("/api/users");
-            setUsers(result.data);
-        };
-        fetchData();
-    }, []);
+      const fetchData = async () => {
+        try {
+          const result = await axios.get('/api/users');
+          dispatch(setUsers(result.data));
+        } catch (err) {
+          console.error('Failed to fetch users:', err);
+        }
+      };
+      fetchData();
+    }, [dispatch]);
+
     return (
         <div>
             <div className="w-full">
