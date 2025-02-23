@@ -65,7 +65,12 @@ const run = async () => {
         }
     });
     app.delete("/users/:id", async (req, res) => {
-        
+        const userId = Number(req.params.id);
+        const userRepository = AppDataSource.manager.getRepository(User);
+        const user = await userRepository.delete({
+          id: userId
+        });
+        res.json(user);
     })
     app.get("/users/:id", async (req, res) => {
         const userId = Number(req.params.id);
@@ -78,7 +83,7 @@ const run = async () => {
           return res.status(404).json({ error: "User not found" });
         }
         res.json(user);
-      });
+    });
       
     app.listen(3000, () => {
         console.log("Server is running on http://localhost:3000");
