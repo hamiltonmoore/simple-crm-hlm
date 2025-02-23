@@ -9,9 +9,7 @@ import {
   saveUserStart,
   saveUserSuccess,
   saveUserFailure,
-  cancelEditing,
-  deleteUserStart,
-  deleteUserSuccess
+  cancelEditing
 } from './store/userSlice';
 import { RootState } from './store/index';
 
@@ -61,11 +59,6 @@ export const UserPage: React.FC = () => {
       dispatch(saveUserFailure(errorMessage));
     }
   };
-
-  // Handle user deletion
-  const handleDeleteUser = async (e: React.FormEvent) => {
-    console.log("delete the user:")
-  }
 
   // Handle note submission
   const handleSubmitNote = async (e: React.FormEvent) => {
@@ -160,12 +153,6 @@ export const UserPage: React.FC = () => {
         className="mb-4 p-2 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
         Edit User
-      </button>
-      <button
-        onClick={() => dispatch(startEditing(user))}
-        className="mb-4 p-2 bg-red-500 text-white rounded hover:bg-red-600"
-      >
-        Delete User
       </button>
 
       <h2 className="text-xl mt-4 font-semibold">Notes</h2>

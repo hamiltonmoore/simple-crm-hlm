@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from './store/userSlice';
 import { useDispatch } from 'react-redux';
 import { User } from './types';
+import axios from 'axios';
 
 export const UserRow: React.FC<{ user: User }> = ({ user }) => {
   const navigate = useNavigate();
