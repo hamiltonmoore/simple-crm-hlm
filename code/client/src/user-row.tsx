@@ -38,11 +38,11 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
                     View Profile
                 </button>
             </td>
-            <td>{user.firstName}</td>
-            <td>{user.lastName}</td>
-            <td>{user.age}</td>
-            <td>{user.phoneNumber}</td>
-            <td>
+            <td className="p-2 text-gray-700 text-center">{user.firstName}</td>
+            <td className="p-2 text-gray-700 text-center">{user.lastName}</td>
+            <td className="p-2 text-gray-700 text-center">{user.age}</td>
+            <td className="p-2 text-gray-700 text-center">{user.phoneNumber}</td>
+            <td className="p-2">
                 <button
                     onClick={handleDelete}
                     className="p-1 bg-red-500 text-white rounded hover:bg-red-600"
@@ -50,7 +50,6 @@ export const UserRow: React.FC<{ user: User }> = ({ user }) => {
                     Delete
                 </button>
             </td>
-
         </tr>
     );
 };
