@@ -70,7 +70,7 @@ const run = async () => {
         const noteRepository = AppDataSource.manager.getRepository(Note);
     
         try {
-            // Delete notes associated with the user
+            // Delete notes associated with the user to prevent orphaned data
             await noteRepository.delete({ user: { id: userId } });
     
             // Delete the user
