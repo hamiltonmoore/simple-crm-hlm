@@ -20,6 +20,18 @@ const run = async () => {
         await AppDataSource.manager.getRepository(User).save(user);
         res.json(user);
     });
+    app.get("/users/:id", async (req, res) => {
+        const userId = Number(req.params.id);
+        const userRepository = AppDataSource.manager.getRepository(User);
+        const user = await userRepository.findOne({
+          where: { id: userId },
+          relations: ["notes"],
+        });
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+        res.json(user);
+    });
     app.put("/users/:id", async (req, res) => {
         const user = await AppDataSource.manager
             .getRepository(User)
@@ -30,6 +42,29 @@ const run = async () => {
         user.phoneNumber = req.body.phoneNumber;
         await AppDataSource.manager.getRepository(User).save(user);
         res.json(user);
+    });
+    app.delete("/users/:id", async (req, res) => {
+        const userId = Number(req.params.id);
+        const userRepository = AppDataSource.manager.getRepository(User);
+        const noteRepository = AppDataSource.manager.getRepository(Note);
+    
+        try {
+            // Delete notes associated with the user to prevent orphaned data
+            await noteRepository.delete({ user: { id: userId } });
+    
+            // Delete the user
+            const result = await userRepository.delete({ id: userId });
+    
+            // Check if the user was found and deleted
+            if (result.affected === 0) {
+                return res.status(404).json({ error: "User not found" });
+            }
+    
+            res.status(204).send();
+        } catch (err) {
+            console.error("Delete error:", err);
+            res.status(500).json({ error: "Failed to delete user" });
+        }
     });
     app.post("/users/:id/notes", async (req, res) => {
         const userId = Number(req.params.id);
@@ -63,41 +98,6 @@ const run = async () => {
                 details: error,
             });
         }
-    });
-    app.delete("/users/:id", async (req, res) => {
-        const userId = Number(req.params.id);
-        const userRepository = AppDataSource.manager.getRepository(User);
-        const noteRepository = AppDataSource.manager.getRepository(Note);
-    
-        try {
-            // Delete notes associated with the user to prevent orphaned data
-            await noteRepository.delete({ user: { id: userId } });
-    
-            // Delete the user
-            const result = await userRepository.delete({ id: userId });
-    
-            // Check if the user was found and deleted
-            if (result.affected === 0) {
-                return res.status(404).json({ error: "User not found" });
-            }
-    
-            res.status(204).send();
-        } catch (err) {
-            console.error("Delete error:", err);
-            res.status(500).json({ error: "Failed to delete user" });
-        }
-    });
-    app.get("/users/:id", async (req, res) => {
-        const userId = Number(req.params.id);
-        const userRepository = AppDataSource.manager.getRepository(User);
-        const user = await userRepository.findOne({
-          where: { id: userId },
-          relations: ["notes"],
-        });
-        if (!user) {
-          return res.status(404).json({ error: "User not found" });
-        }
-        res.json(user);
     });
       
     app.listen(3000, () => {
