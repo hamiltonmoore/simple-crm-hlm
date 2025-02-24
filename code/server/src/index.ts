@@ -70,6 +70,7 @@ const run = async () => {
         const userId = Number(req.params.id);
         const { note } = req.body;
 
+        // Ensure note content was sent
         if (!note) {
             return res.status(400).json({ error: "Note content is required" });
         }
@@ -77,6 +78,7 @@ const run = async () => {
         const userRepository = AppDataSource.manager.getRepository(User);
         const user = await userRepository.findOne({ where: { id: userId } });
 
+        // Ensure associated user exists
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
