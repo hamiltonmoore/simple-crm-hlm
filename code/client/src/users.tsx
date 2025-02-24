@@ -10,32 +10,31 @@ import { RootState } from './store/index';
 export const Users: React.FC = () => {
     const dispatch = useDispatch();
     const users = useSelector((state: RootState) => state.user.users);
-
+  
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const result = await axios.get('/api/users');
-                dispatch(setUsers(result.data));
-            } catch (err) {
-                console.error('Failed to fetch users:', err);
-            }
-        };
-        fetchData();
+      const fetchData = async () => {
+        try {
+          const result = await axios.get('/api/users');
+          dispatch(setUsers(result.data));
+        } catch (err) {
+          console.error('Failed to fetch users:', err);
+        }
+      };
+      fetchData();
     }, [dispatch]);
 
     return (
-        <div className="p-4 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+        <div>
             <div className="w-full">
-                <h2 className="text-xl font-bold mb-4">Users</h2>
-                <table className="table-auto w-full bg-gray-100 rounded">
+                <h2 className="text-xl font-fold">Users</h2>
+                <table className="table-auto w-full">
                     <thead>
-                        <tr className="text-left text-gray-700">
-                            <th className="p-2"></th>
-                            <th className="p-2">First Name</th>
-                            <th className="p-2">Last Name</th>
-                            <th className="p-2">Age</th>
-                            <th className="p-2">Phone Number</th>
-                            <th className="p-2"></th>
+                        <tr>
+                            <th></th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Phone Number</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +44,7 @@ export const Users: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-            <AddUser />
+            <AddUser/>
         </div>
     );
 };
