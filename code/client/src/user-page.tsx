@@ -82,63 +82,6 @@ export const UserPage: React.FC = () => {
   if (fetchError) return <div className="text-red-500 text-center">{fetchError}</div>;
   if (!user) return <div className="text-center text-gray-600">User not found</div>;
 
-  if (isEditing && editingUser) {
-    return (
-      <div className="p-4 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
-        <form
-          onSubmit={handleEditSubmit}
-          className="space-y-4 p-4 rounded bg-gray-100 w-96"
-        >
-          <h2 className="text-xl font-bold">Edit</h2>
-          {error && <p className="text-red-500">{error}</p>}
-          {success && <p className="text-green-500">User updated successfully</p>}
-          <input
-            type="text"
-            placeholder="First Name"
-            value={editingUser.firstName}
-            onChange={e => dispatch(updateEditingUser({ firstName: e.target.value }))}
-            className="block w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            value={editingUser.lastName}
-            onChange={e => dispatch(updateEditingUser({ lastName: e.target.value }))}
-            className="block w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Age"
-            value={editingUser.age}
-            onChange={e => dispatch(updateEditingUser({ age: Number(e.target.value) }))}
-            className="block w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Phone Number"
-            value={editingUser.phoneNumber}
-            onChange={e => dispatch(updateEditingUser({ phoneNumber: e.target.value }))}
-            className="block w-full p-2 border border-gray-300 rounded"
-          />
-          <button
-            type="submit"
-            disabled={loading}
-            className="block w-full p-2 bg-blue-500 text-white rounded"
-          >
-            Update User
-          </button>
-          <button
-            type="button"
-            onClick={() => dispatch(cancelEditing())}
-            className="block w-full p-2 bg-gray-500 text-white rounded mt-2"
-          >
-            Cancel
-          </button>
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4 max-w-2xl mx-auto bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-2">
@@ -154,6 +97,61 @@ export const UserPage: React.FC = () => {
       >
         Edit User
       </button>
+
+      {isEditing ? (
+      <div className="mb-4">
+        <form
+          onSubmit={handleEditSubmit}
+          className="space-y-4 p-4 rounded bg-gray-100"
+        >
+          <h2 className="text-xl font-bold">Edit User</h2>
+          {error && <p className="text-red-500">{error}</p>}
+          {success && <p className="text-green-500">User updated successfully</p>}
+          <input
+            type="text"
+            placeholder="First Name"
+            value={editingUser.firstName}
+            onChange={e => dispatch(updateEditingUser({ firstName: e.target.value }))}
+            className="block w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={editingUser.lastName}
+            onChange={e => dispatch(updateEditingUser({ lastName: e.target.value }))}
+            className="block w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Age"
+            value={editingUser.age}
+            onChange={e => dispatch(updateEditingUser({ age: Number(e.target.value) }))}
+            className="block w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+          />
+          <input
+            type="text"
+            placeholder="Phone Number"
+            value={editingUser.phoneNumber}
+            onChange={e => dispatch(updateEditingUser({ phoneNumber: e.target.value }))}
+            className="block w-full p-2 border border-gray-300 rounded focus:ring-blue-500 focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="block w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+          >
+            Update User
+          </button>
+          <button
+            type="button"
+            onClick={() => dispatch(cancelEditing())}
+            className="block w-full p-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors duration-200 mt-2"
+          >
+            Cancel
+          </button>
+        </form>
+      </div>
+    ) : null}
 
       <h2 className="text-xl mt-4 font-semibold">Notes</h2>
       {user.notes && user.notes.length > 0 ? (
